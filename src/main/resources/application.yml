@@ -1,0 +1,2 @@
+service:
+  url: http://developer-test.hishab.io/api/v1/roll-dice
