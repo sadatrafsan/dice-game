@@ -1,7 +1,7 @@
-package com.hishab.entity;
+package com.hishab.dto.response;
 
 import lombok.*;
-import java.util.List;
+import java.util.Set;
 
 @Builder
 @AllArgsConstructor
@@ -10,10 +10,10 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode
 @ToString
-public class Game {
+public class GameResponse {
 
-    private long id;
+    private Long id;
     private String winnerId;
-    private List<Player> players;
+    private Set<PlayerResponse> players;
     private int highestPoint;
 }

@@ -1,4 +1,4 @@
-package com.hishab.entity;
+package com.hishab.dto.request;
 
 import lombok.*;
 import java.util.List;
@@ -10,10 +10,8 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode
 @ToString
-public class Game {
+public class GameRequest {
 
-    private long id;
-    private String winnerId;
-    private List<Player> players;
+    private List<String> players;
     private int highestPoint;
 }

@@ -20,7 +20,7 @@ public class PlayerServiceImpl implements PlayerService {
         log.debug(request.toString());
 
         Player player = Player.builder()
-                .id(UUID.randomUUID().toString().substring(0,3))
+                .id(UUID.randomUUID().toString().substring(0,4))
                 .name(request.getName())
                 .age(request.getAge())
                 .build();
