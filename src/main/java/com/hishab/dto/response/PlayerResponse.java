@@ -2,6 +2,7 @@ package com.hishab.dto.response;
 
 import lombok.*;
 
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
