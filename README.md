@@ -1,3 +1,7 @@
+# How To Run
+use docker to create image and run with image id.
+URL: localhost:8080
+
 # Docker Demo Project
 docker -v docker images
 

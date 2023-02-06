@@ -5,7 +5,7 @@ import com.hishab.dto.response.GameResponse;
 import com.hishab.dto.response.PlayerResponse;
 import com.hishab.entity.Game;
 import com.hishab.entity.Player;
-import com.hishab.entity.ScoreResponse;
+import com.hishab.dto.response.ScoreResponse;
 import com.hishab.repository.DataFactory;
 import com.hishab.service.abstraction.GameService;
 import com.hishab.service.game.GameEngine;

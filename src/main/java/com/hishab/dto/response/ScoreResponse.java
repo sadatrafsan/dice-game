@@ -1,4 +1,4 @@
-package com.hishab.entity;
+package com.hishab.dto.response;
 
 import lombok.*;
 

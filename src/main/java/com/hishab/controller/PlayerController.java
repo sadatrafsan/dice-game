@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
-@RequestMapping("/players")
+@RequestMapping("/api/players")
 @RestController
 public class PlayerController {
 
