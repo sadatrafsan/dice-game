@@ -238,9 +238,9 @@ public class GameEngine {
 
                     if(isSix(score3)){
 
-                        if(!flag2){
+                        if(!flag3){
                             playerScore3 = 0;
-                            flag2 = true;
+                            flag3 = true;
                         }
                         else{
                             playerScore3 += score3;
@@ -250,7 +250,7 @@ public class GameEngine {
 
                         if(isPenalty(score3) && flag3){
 
-                            playerScore2 -= 4;
+                            playerScore3 -= 4;
                         }
 
                     }
@@ -282,6 +282,196 @@ public class GameEngine {
             DataFactory.updateGame(game);
             DataFactory.updateScore(game.getId(), player3.getName(), playerScore3);
             log.info("Winner: {}" + " Score: {}", player3.getName(), playerScore3);
+        }
+    }
+
+    public void simulateFourPlayerGame(Game game){
+
+        int target = game.getHighestPoint();
+        Player player1 = game.getPlayers().get(0);
+        Player player2 = game.getPlayers().get(1);
+        Player player3 = game.getPlayers().get(2);
+        Player player4 = game.getPlayers().get(3);
+        boolean flag1 = false;
+        boolean flag2 = false;
+        boolean flag3 = false;
+        boolean flag4 = false;
+        int playerScore1 = 0;
+        int playerScore2 = 0;
+        int playerScore3 = 0;
+        int playerScore4 = 0;
+
+        while((playerScore1 < target) && (playerScore2 < target) && (playerScore3 < target) && (playerScore4 < target)){
+
+            //Player One
+            do{
+                int score1 = roll();
+
+                //Six, Start game
+                if(isSix(score1)){
+
+                    //Roll again
+                    score1 = roll();
+
+                    if(isSix(score1)){
+
+                        if(!flag1){
+                            playerScore1 = 0;
+                            flag1 = true;
+                        }
+                        else{
+                            playerScore1 += score1;
+                        }
+                    }
+                    else {
+
+                        if(isPenalty(score1) && flag1){
+
+                            playerScore1 -= 4;
+                        }
+
+                    }
+
+                }
+
+                DataFactory.updateScore(game.getId(), player1.getName(), score1);
+                log.info("Player name: {}" + " Total Score: {}" + " Current Value of Dice: {}", player1.getName(), playerScore1, score1);
+                break;
+
+            }while(playerScore1 < target);
+
+            //Player Two
+            do{
+
+                int score2 = roll();
+
+                if(isSix(score2)){
+
+                    score2 = roll();
+
+                    if(isSix(score2)){
+
+                        if(!flag2){
+                            playerScore2 = 0;
+                            flag2 = true;
+                        }
+                        else{
+                            playerScore2 += score2;
+                        }
+                    }
+                    else {
+
+                        if(isPenalty(score2) && flag2){
+
+                            playerScore2 -= 4;
+                        }
+
+                    }
+                }
+
+                DataFactory.updateScore(game.getId(), player2.getName(), score2);
+                log.info("Player name: {}" + " Total Score: {}" + " Current Value of Dice: {}", player2.getName(), playerScore2, score2);
+                break;
+
+            }while(playerScore2 < target);
+
+            //Player Three
+            do{
+
+                int score3 = roll();
+
+                if(isSix(score3)){
+
+                    score3 = roll();
+
+                    if(isSix(score3)){
+
+                        if(!flag3){
+                            playerScore3 = 0;
+                            flag3 = true;
+                        }
+                        else{
+                            playerScore3 += score3;
+                        }
+                    }
+                    else {
+
+                        if(isPenalty(score3) && flag3){
+
+                            playerScore3 -= 4;
+                        }
+
+                    }
+                }
+
+                DataFactory.updateScore(game.getId(), player3.getName(), score3);
+                log.info("Player name: {}" + " Total Score: {}" + " Current Value of Dice: {}", player3.getName(), playerScore3, score3);
+                break;
+
+            }while(playerScore3 < target);
+
+            //Player Four
+            do{
+
+                int score4 = roll();
+
+                if(isSix(score4)){
+
+                    score4 = roll();
+
+                    if(isSix(score4)){
+
+                        if(!flag4){
+                            playerScore4 = 0;
+                            flag4 = true;
+                        }
+                        else{
+                            playerScore4 += score4;
+                        }
+                    }
+                    else {
+
+                        if(isPenalty(score4) && flag4){
+
+                            playerScore4 -= 4;
+                        }
+
+                    }
+                }
+
+                DataFactory.updateScore(game.getId(), player4.getName(), score4);
+                log.info("Player name: {}" + " Total Score: {}" + " Current Value of Dice: {}", player4.getName(), playerScore4, score4);
+                break;
+
+            }while(playerScore4 < target);
+        }
+
+        if(playerScore1 >= target){
+            game.setWinnerId(player1.getId());
+            DataFactory.updateGame(game);
+            DataFactory.updateScore(game.getId(), player1.getName(), playerScore1);
+            log.info("Winner: {}" + " Score: {}", player1.getName(), playerScore1);
+        }
+
+        if(playerScore2 >= target){
+            game.setWinnerId(player2.getId());
+            DataFactory.updateGame(game);
+            DataFactory.updateScore(game.getId(), player2.getName(), playerScore2);
+            log.info("Winner: {}" + " Score: {}", player2.getName(), playerScore2);
+        }
+
+        if(playerScore3 >= target){
+            game.setWinnerId(player3.getId());
+            DataFactory.updateGame(game);
+            DataFactory.updateScore(game.getId(), player3.getName(), playerScore3);
+            log.info("Winner: {}" + " Score: {}", player3.getName(), playerScore3);
+        }
+
+        if(playerScore4 >= target){
+            game.setWinnerId(player4.getId());
+            DataFactory.updateGame(game);
+            DataFactory.updateScore(game.getId(), player4.getName(), playerScore4);
+            log.info("Winner: {}" + " Score: {}", player4.getName(), playerScore4);
         }
     }
 

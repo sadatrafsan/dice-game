@@ -96,5 +96,8 @@ public class GameServiceImpl implements GameService {
         else if(size == 3){
             gameEngine.simulateThreePlayerGame(game);
         }
+        else if (size == 4){
+            gameEngine.simulateFourPlayerGame(game);
+        }
     }
 }
