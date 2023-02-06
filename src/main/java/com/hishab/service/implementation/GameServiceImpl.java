@@ -1,14 +1,13 @@
 package com.hishab.service.implementation;
 
 import com.hishab.dto.request.GameRequest;
-import com.hishab.dto.response.DiceResponse;
 import com.hishab.dto.response.GameResponse;
 import com.hishab.dto.response.PlayerResponse;
 import com.hishab.entity.Game;
 import com.hishab.entity.Player;
 import com.hishab.repository.DataFactory;
-import com.hishab.service.abstraction.DiceService;
 import com.hishab.service.abstraction.GameService;
+import com.hishab.service.game.GameEngine;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
@@ -16,14 +15,14 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @AllArgsConstructor
 @Service
 public class GameServiceImpl implements GameService {
 
-    private DiceService diceService;
+    private GameEngine gameEngine;
+
 
     public GameResponse startGame(GameRequest request){
 
@@ -59,18 +58,6 @@ public class GameServiceImpl implements GameService {
         return responses;
     }
 
-    private int rollTheDice(){
-
-        DiceResponse diceResponse = diceService.rollTheDice();
-
-        if(diceResponse.getStatus() == 200){
-            return diceResponse.getScore();
-        }
-
-        return 0;
-    }
-
-
     @Async
     public void simulateTheGame(GameResponse response){
 
@@ -80,41 +67,7 @@ public class GameServiceImpl implements GameService {
 
         if(size == 2){
 
-            int array[] = {0,0};
-
-            Player player1 = game.getPlayers().get(0);
-            player1.setScorecard(Map.of(game.getId(), 0));
-            int player1Score = player1.getScorecard().get(game.getId());
-
-            Player player2 = game.getPlayers().get(1);
-            player2.setScorecard(Map.of(game.getId(), 0));
-            int player2Score = player1.getScorecard().get(game.getId());
-
-            int highestPoint = game.getHighestPoint();
-
-            while((player1Score < highestPoint) && (player2Score < highestPoint)){
-
-                int score = rollTheDice();
-
-                if(isBetween1to5(score)){
-                    score = rollTheDice();
-                }
-
-
-            }
-
+            gameEngine.simulateTwoPlayerGame(game);
         }
-
-
-    }
-
-    private boolean isBetween1to5(int score){
-
-        return score > 0 && score < 6;
-    }
-
-    private boolean is6(int score){
-
-        return score == 6;
     }
 }

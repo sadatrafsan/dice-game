@@ -44,4 +44,9 @@ public class DataFactory {
 
         return gameMap.get(id);
     }
+
+    public static void updateGame(Game game){
+
+        gameMap.put(game.getId(), game);
+    }
 }
