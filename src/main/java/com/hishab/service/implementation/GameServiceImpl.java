@@ -5,6 +5,7 @@ import com.hishab.dto.response.GameResponse;
 import com.hishab.dto.response.PlayerResponse;
 import com.hishab.entity.Game;
 import com.hishab.entity.Player;
+import com.hishab.entity.ScoreResponse;
 import com.hishab.repository.DataFactory;
 import com.hishab.service.abstraction.GameService;
 import com.hishab.service.game.GameEngine;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @AllArgsConstructor
@@ -22,6 +24,28 @@ import java.util.List;
 public class GameServiceImpl implements GameService {
 
     private GameEngine gameEngine;
+
+    @Override
+    public List<ScoreResponse> getScoresByGameId(long gameId){
+
+        List<ScoreResponse> responses = new ArrayList<>();
+
+        if(DataFactory.isGameValid(gameId)){
+
+            Map<String, Integer> scores = DataFactory.getScoresByGameId(gameId);
+
+            for(String key : scores.keySet()){
+
+                responses.add(
+                        ScoreResponse.builder()
+                                .playerName(key)
+                                .score(scores.get(key))
+                                .build());
+            };
+        }
+
+        return responses;
+    }
 
 
     public GameResponse startGame(GameRequest request){

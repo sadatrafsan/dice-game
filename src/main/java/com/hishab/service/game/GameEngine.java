@@ -2,6 +2,7 @@ package com.hishab.service.game;
 
 import com.hishab.dto.response.DiceResponse;
 import com.hishab.entity.Game;
+import com.hishab.entity.Player;
 import com.hishab.repository.DataFactory;
 import com.hishab.service.abstraction.DiceService;
 import lombok.AllArgsConstructor;
@@ -44,12 +45,14 @@ public class GameEngine {
     public void simulateTwoPlayerGame(Game game){
 
         int target = game.getHighestPoint();
+        Player player1 = game.getPlayers().get(0);
+        Player player2 = game.getPlayers().get(1);
         boolean flag1 = false;
         boolean flag2 = false;
-        int player1 = 0;
-        int player2 = 0;
+        int playerScore1 = 0;
+        int playerScore2 = 0;
 
-        while((player1 < target) && (player2 < target)){
+        while((playerScore1 < target) && (playerScore2 < target)){
 
             do{
                 int score1 = roll();
@@ -63,28 +66,29 @@ public class GameEngine {
                     if(isSix(score1)){
 
                         if(!flag1){
-                            player1 = 0;
+                            playerScore1 = 0;
                             flag1 = true;
                         }
                         else{
-                            player1 += score1;
+                            playerScore1 += score1;
                         }
                     }
                     else {
 
                         if(isPenalty(score1) && flag1){
 
-                            player1 -= 4;
+                            playerScore1 -= 4;
                         }
 
                     }
 
                 }
 
-                log.info("Player name: {}" + " Total Score: {}" + " Current Value of Dice: {}", game.getPlayers().get(0).getName(), player1, score1);
+                DataFactory.updateScore(game.getId(), player1.getName(), score1);
+                log.info("Player name: {}" + " Total Score: {}" + " Current Value of Dice: {}", player1.getName(), playerScore1, score1);
                 break;
 
-            }while(player1 < target);
+            }while(playerScore1 < target);
 
             do{
 
@@ -97,39 +101,42 @@ public class GameEngine {
                     if(isSix(score2)){
 
                         if(!flag2){
-                            player2 = 0;
+                            playerScore2 = 0;
                             flag2 = true;
                         }
                         else{
-                            player2 += score2;
+                            playerScore2 += score2;
                         }
                     }
                     else {
 
                         if(isPenalty(score2) && flag2){
 
-                            player2 -= 4;
+                            playerScore2 -= 4;
                         }
 
                     }
                 }
 
-                log.info("Player name: {}" + " Total Score: {}" + " Current Value of Dice: {}", game.getPlayers().get(1).getName(), player2, score2);
+                DataFactory.updateScore(game.getId(), player2.getName(), score2);
+                log.info("Player name: {}" + " Total Score: {}" + " Current Value of Dice: {}", player2.getName(), playerScore2, score2);
                 break;
 
-            }while(player2 < target);
+            }while(playerScore2 < target);
         }
 
-        if(player1 >= target){
-            game.setWinnerId(game.getPlayers().get(0).getId());
+        if(playerScore1 >= target){
+            game.setWinnerId(player1.getId());
             DataFactory.updateGame(game);
-            log.info("Winner: {}" + " Score: {}", game.getPlayers().get(0).getName(), player1);
+            DataFactory.updateScore(game.getId(), player1.getName(), playerScore1);
+            log.info("Winner: {}" + " Score: {}", player1.getName(), playerScore1);
         }
 
-        if(player2 >= target){
-            game.setWinnerId(game.getPlayers().get(1).getId());
+        if(playerScore2 >= target){
+            game.setWinnerId(player2.getId());
             DataFactory.updateGame(game);
-            log.info("Winner: {}" + " Score: {}", game.getPlayers().get(1).getName(), player2);
+            DataFactory.updateScore(game.getId(), player2.getName(), playerScore2);
+            log.info("Winner: {}" + " Score: {}", player2.getName(), playerScore2);
         }
     }
 

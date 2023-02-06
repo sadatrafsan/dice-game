@@ -9,9 +9,8 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 @Builder
-public class Scorecard {
+public class ScoreResponse {
 
-    private int gameId;
-    private String playerId;
+    private String playerName;
     private int score;
 }

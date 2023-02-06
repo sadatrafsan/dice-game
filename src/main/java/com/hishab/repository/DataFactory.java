@@ -13,6 +13,8 @@ public class DataFactory {
     private static Map<String, Player> playerMap = new HashMap<>();
     private static Map<Long, Game> gameMap = new HashMap<>();
 
+    private static Map<Long, Map<String, Integer>> scoreMap = new HashMap<>();
+
     public static void addPlayer(Player player){
 
         players.add(player);
@@ -48,5 +50,30 @@ public class DataFactory {
     public static void updateGame(Game game){
 
         gameMap.put(game.getId(), game);
+    }
+
+    public static void updateScore(long gameId, String player, int score){
+
+        if(scoreMap.containsKey(gameId)){
+
+            Map<String, Integer> playerScores = scoreMap.get(gameId);
+            playerScores.put(player, score);
+            scoreMap.put(gameId, playerScores);
+        }
+        else{
+            Map<String, Integer> playerScores = new HashMap<>();
+            playerScores.put(player, score);
+            scoreMap.put(gameId, playerScores);
+        }
+    }
+
+    public static Map<String, Integer> getScoresByGameId(long gameId){
+
+        return scoreMap.get(gameId);
+    }
+
+    public static boolean isGameValid(long gameId){
+
+        return scoreMap.containsKey(gameId);
     }
 }
