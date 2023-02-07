@@ -13,7 +13,7 @@
 	<version>1</version>
 	<packaging>war</packaging>
 	<name>dice-game</name>
-	<description>Hishab assignment </description>
+	<description>Hishab assignment</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>

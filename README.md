@@ -2,6 +2,13 @@
 use docker to create image and run with image id.
 URL: localhost:8080
 
+# ENDPOINT
+Start Game: http://localhost:8080/api/game [POST]
+Scores: http://localhost:8080/api/game/scores/{gameId} [GET]
+Player List: http://localhost:8080/api/players [GET]
+Create New Player: http://localhost:8080/api/players [POST]
+
+
 # Docker Demo Project
 docker -v docker images
 
