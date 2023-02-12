@@ -39,7 +39,7 @@ public class GameController {
         else{
 
             GameResponse response = gameService.startGame(request);
-            gameService.simulateTheGame(response);
+            gameService.startGameSimulation(response);
 
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         }

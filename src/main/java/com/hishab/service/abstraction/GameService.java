@@ -9,5 +9,5 @@ public interface GameService {
 
     List<ScoreResponse> getScoresByGameId(long gameId);
     GameResponse startGame(GameRequest request);
-    void simulateTheGame(GameResponse response);
+    void startGameSimulation(GameResponse response);
 }

@@ -83,21 +83,10 @@ public class GameServiceImpl implements GameService {
     }
 
     @Async
-    public void simulateTheGame(GameResponse response){
+    public void startGameSimulation(GameResponse response){
 
         Game game = DataFactory.getGameById(response.getId());
 
-        int size = game.getPlayers().size();
-
-        if(size == 2){
-
-            gameEngine.simulateTwoPlayerGame(game);
-        }
-        else if(size == 3){
-            gameEngine.simulateThreePlayerGame(game);
-        }
-        else if (size == 4){
-            gameEngine.simulateFourPlayerGame(game);
-        }
+        gameEngine.simulateDynamicGame(game);
     }
 }
